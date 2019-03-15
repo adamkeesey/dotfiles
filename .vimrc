@@ -25,6 +25,17 @@ Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'adoy/vim-php-refactoring-toolbox', {'for': 'php'}
 Plug 'tobyS/pdv'
 Plug 'tobyS/vmustache'
+
+Plug 'pangloss/vim-javascript'
+Plug 'elzr/vim-json'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'mattn/emmet-vim'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -108,3 +119,17 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
+
+set bg=dark    " Setting dark mode
+colorscheme gruvbox
+
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
