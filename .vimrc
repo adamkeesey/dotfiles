@@ -35,7 +35,8 @@ Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-
+Plug 'tpope/vim-rhubarb'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -120,9 +121,6 @@ if has("autocmd")
     \| exe "normal! g'\"" | endif
 endif
 
-set bg=dark    " Setting dark mode
-colorscheme gruvbox
-
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
@@ -133,3 +131,10 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif""))
+map <C-n> :NERDTreeToggle<CR>
+
+set bg=dark    " Setting dark mode
+colorscheme gruvbox"
