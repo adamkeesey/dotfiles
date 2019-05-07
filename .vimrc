@@ -28,7 +28,7 @@ Plug 'tobyS/vmustache'
 
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+" Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 
@@ -37,7 +37,33 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rhubarb'
 Plug 'scrooloose/nerdtree'
+Plug 'airblade/vim-gitgutter'
+Plug 'Konfekt/FastFold'
+Plug 'vim-syntastic/syntastic'
+Plug 'kylef/apiblueprint.vim'
+Plug 'Townk/vim-autoclose'
+Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'moll/vim-node'
+Plug 'junegunn/limelight.vim'
 call plug#end()
+
+" markdown preview
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_github=1
+let vim_markdown_preview_temp_file=1
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+autocmd FileType apiblueprint nnoremap <C-b> :call GenerateRefract()<cr>
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -70,6 +96,10 @@ au FileType go nmap <F12> <Plug>(go-def)
 let g:go_addtags_transform = "camelcase"
 
 " PHP
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 let g:ale_php_phpcbf_standard='PSR2'
@@ -96,6 +126,11 @@ nnoremap <unique> <Leader>sg :call PhpCreateSettersAndGetters()<CR>
 nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
 nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
 
+" JS
+au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=2
+au FileType javascript set tabstop=2
+
 " Error and warning signs.
 let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚠'
@@ -108,10 +143,10 @@ let g:ale_fixers = {
 let g:airline#extensions#ale#enabled = 1
 
 " General Settings
-set foldmethod=indent
-set foldnestmax=10
-set nofoldenable
-set foldlevel=2
+" set foldmethod=indent
+" set foldnestmax=10
+" set nofoldenable
+" set foldlevel=2
 nnoremap <space> za
 vnoremap <space> zf
 inoremap <F3> <c-o>:w<cr>
@@ -124,13 +159,13 @@ endif
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
+" inoremap " ""<left>
+" inoremap ' ''<left>
+" inoremap ( ()<left>
+" inoremap [ []<left>
+" inoremap { {}<left>
+" inoremap {<CR> {<CR>}<ESC>O
+" inoremap {;<CR> {<CR>};<ESC>O
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif""))
@@ -138,3 +173,31 @@ map <C-n> :NERDTreeToggle<CR>
 
 set bg=dark    " Setting dark mode
 colorscheme gruvbox"
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" let g:markdown_folding = 7
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:ruby_fold = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+let g:php_folding = 1
+
+inoremap jj <ESC>
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/node_modules
+
+let g:limelight_conceal_ctermfg = 'grey'
