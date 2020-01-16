@@ -2,6 +2,7 @@ let mapleader = ','
 set number
 set relativenumber
 set numberwidth=3
+set dir=~/tmp
 
 call plug#begin()
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
@@ -45,6 +46,8 @@ Plug 'Townk/vim-autoclose'
 Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'moll/vim-node'
 Plug 'junegunn/limelight.vim'
+Plug 'benmills/vimux'
+Plug 'jbgutierrez/vim-better-comments'
 call plug#end()
 
 " markdown preview
@@ -92,7 +95,7 @@ let g:go_snippet_engine = "neosnippet"
 
 let g:go_fmt_command = "goimports"
 au FileType go nmap <leader>gt :GoDeclsDir<cr>
-au FileType go nmap <F12> <Plug>(go-def)
+au FileType go nmap <Leader><F12> <Plug>(go-def)
 let g:go_addtags_transform = "camelcase"
 
 " PHP
@@ -145,8 +148,8 @@ let g:airline#extensions#ale#enabled = 1
 " General Settings
 " set foldmethod=indent
 " set foldnestmax=10
-" set nofoldenable
-" set foldlevel=2
+set nofoldenable
+set foldlevel=2
 nnoremap <space> za
 vnoremap <space> zf
 inoremap <F3> <c-o>:w<cr>
@@ -172,6 +175,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif""))
 map <C-n> :NERDTreeToggle<CR>
 
 set bg=dark    " Setting dark mode
+set t_Co=256
 colorscheme gruvbox"
 
 nnoremap <C-J> <C-W><C-J>
@@ -180,17 +184,17 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " let g:markdown_folding = 7
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:sh_fold_enabled= 7
-let g:ruby_fold = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:r_syntax_folding = 1
-let g:rust_fold = 1
-let g:php_folding = 1
+" let g:tex_fold_enabled = 1
+" let g:vimsyn_folding = 'af'
+" let g:xml_syntax_folding = 1
+" let g:javaScript_fold = 1
+" let g:sh_fold_enabled= 7
+" let g:ruby_fold = 1
+" let g:perl_fold = 1
+" let g:perl_fold_blocks = 1
+" let g:r_syntax_folding = 1
+" let g:rust_fold = 1
+" let g:php_folding = 1
 
 inoremap jj <ESC>
 noremap <Up> <Nop>
@@ -201,3 +205,16 @@ noremap <Right> <Nop>
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor,*/node_modules
 
 let g:limelight_conceal_ctermfg = 'grey'
+
+let g:go_def_mode='gopls'
+
+" add yaml stuffs
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+nnoremap <silent> <Leader>ts
+    \ : if exists("syntax_on") <BAR>
+    \    syntax off <BAR>
+    \ else <BAR>  
+    \    syntax enable <BAR>
+    \ endif<CR>   
